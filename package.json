@@ -20,6 +20,7 @@
   "homepage": "https://github.com/Blvck2580/OmniStackDigital#readme",
   "dependencies": {
     "express": "^5.2.1",
+    "nodemailer": "^9.0.3",
     "pg": "^8.22.0"
   }
 }

@@ -1,12 +1,48 @@
 const express = require('express');
 const { Pool } = require('pg');
 const path = require('path');
+const nodemailer = require('nodemailer');
 
 const app = express();
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
+
+/* ── Gmail SMTP transporter ── */
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'omnistackdigital1@gmail.com',
+    pass: process.env.GMAIL_APP_PASSWORD,
+  },
+});
+
+async function sendNotificationEmail({ name, email, service, message }) {
+  await transporter.sendMail({
+    from: '"OmniStack Digital" <omnistackdigital1@gmail.com>',
+    to: 'omnistackdigital1@gmail.com',
+    subject: `New contact form submission from ${name}`,
+    text: [
+      `Name:    ${name}`,
+      `Email:   ${email}`,
+      `Service: ${service || 'Not specified'}`,
+      ``,
+      `Message:`,
+      message || '(none)',
+    ].join('\n'),
+    html: `
+      <h2 style="color:#1a1a2e;">New contact form submission</h2>
+      <table style="font-family:sans-serif;font-size:15px;border-collapse:collapse;">
+        <tr><td style="padding:6px 16px 6px 0;color:#555;">Name</td><td><strong>${name}</strong></td></tr>
+        <tr><td style="padding:6px 16px 6px 0;color:#555;">Email</td><td><a href="mailto:${email}">${email}</a></td></tr>
+        <tr><td style="padding:6px 16px 6px 0;color:#555;">Service</td><td>${service || 'Not specified'}</td></tr>
+      </table>
+      <p style="font-family:sans-serif;font-size:15px;margin-top:16px;color:#555;">Message:</p>
+      <p style="font-family:sans-serif;font-size:15px;white-space:pre-wrap;">${message || '(none)'}</p>
+    `,
+  });
+}
 
 /* ── Schema bootstrap ── */
 async function initDb() {
@@ -34,13 +70,22 @@ app.post('/api/contact', async (req, res) => {
     return res.status(400).json({ error: 'Invalid email address.' });
   }
 
+  const cleanName    = name.trim();
+  const cleanEmail   = email.trim();
+  const cleanMessage = message?.trim() || null;
+
   try {
     const result = await pool.query(
       `INSERT INTO contact_submissions (name, email, service, message)
        VALUES ($1, $2, $3, $4)
        RETURNING id, created_at`,
-      [name.trim(), email.trim(), service || null, message?.trim() || null]
+      [cleanName, cleanEmail, service || null, cleanMessage]
     );
+
+    // Send email notification (non-blocking — don't fail the response if email errors)
+    sendNotificationEmail({ name: cleanName, email: cleanEmail, service, message: cleanMessage })
+      .catch(err => console.error('Email send error:', err));
+
     res.json({ ok: true, id: result.rows[0].id });
   } catch (err) {
     console.error('DB insert error:', err);
