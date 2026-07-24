@@ -1,0 +1,25 @@
+{
+  "name": "workspace",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Blvck2580/OmniStackDigital.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Blvck2580/OmniStackDigital/issues"
+  },
+  "homepage": "https://github.com/Blvck2580/OmniStackDigital#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "pg": "^8.22.0"
+  }
+}

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OmniStack Digital — Lead Inbox</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12181F; --paper:#EEF1F5; --paper-2:#E2E7EE;
+    --amber:#E8A33D; --teal:#1D7874; --muted:#5B6472;
+    --white:#FFFFFF; --line:rgba(18,24,31,0.1);
+    --display:'Space Grotesk',sans-serif;
+    --body:'Inter',sans-serif;
+    --mono:'JetBrains Mono',monospace;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{ background:var(--paper); color:var(--ink); font-family:var(--body); -webkit-font-smoothing:antialiased; min-height:100vh; }
+
+  header{
+    background:rgba(238,241,245,0.9);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    padding:16px 32px;
+    display:flex; align-items:center; justify-content:space-between;
+    position:sticky; top:0; z-index:10;
+  }
+  .logo{ display:flex; align-items:center; gap:12px; }
+  .logo img{ height:34px; }
+  .badge{
+    font-family:var(--mono); font-size:11px; letter-spacing:.05em;
+    text-transform:uppercase; background:var(--teal); color:#fff;
+    padding:3px 10px; border-radius:999px;
+  }
+  .header-right{ display:flex; align-items:center; gap:16px; }
+  #leadCount{
+    font-family:var(--mono); font-size:13px; color:var(--muted);
+  }
+  .btn-refresh{
+    font-family:var(--body); font-weight:600; font-size:13px;
+    background:var(--ink); color:var(--paper);
+    border:none; border-radius:999px; padding:9px 18px; cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-refresh:hover{ transform:translateY(-1px); box-shadow:0 6px 16px rgba(18,24,31,0.2); }
+
+  main{ max-width:1100px; margin:0 auto; padding:40px 32px; }
+
+  .page-head{ margin-bottom:32px; }
+  .page-head h1{ font-family:var(--display); font-size:28px; font-weight:700; letter-spacing:-.02em; }
+  .page-head p{ margin-top:6px; color:var(--muted); font-size:14px; }
+
+  /* Stats bar */
+  .stats-bar{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:32px;
+  }
+  .stat-card{
+    background:var(--white); border:1px solid var(--line); border-radius:12px;
+    padding:20px 22px;
+  }
+  .stat-card .label{ font-family:var(--mono); font-size:11px; letter-spacing:.05em; text-transform:uppercase; color:var(--muted); }
+  .stat-card .value{ font-family:var(--display); font-size:28px; font-weight:700; margin-top:4px; }
+  .stat-card .sub{ font-size:12px; color:var(--muted); margin-top:2px; }
+
+  /* Table */
+  .table-wrap{
+    background:var(--white); border:1px solid var(--line); border-radius:14px;
+    overflow:hidden;
+  }
+  .table-toolbar{
+    padding:16px 20px; border-bottom:1px solid var(--line);
+    display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  }
+  .search-box{
+    flex:1; min-width:200px;
+    background:var(--paper); border:1px solid var(--line);
+    border-radius:8px; padding:9px 14px;
+    font-family:var(--body); font-size:13.5px; color:var(--ink);
+    outline:none;
+  }
+  .search-box:focus{ border-color:var(--teal); }
+  .filter-select{
+    background:var(--paper); border:1px solid var(--line);
+    border-radius:8px; padding:9px 12px;
+    font-family:var(--body); font-size:13px; color:var(--ink);
+    outline:none; cursor:pointer;
+  }
+
+  table{ width:100%; border-collapse:collapse; }
+  thead th{
+    font-family:var(--mono); font-size:11px; letter-spacing:.05em;
+    text-transform:uppercase; color:var(--muted);
+    padding:12px 20px; text-align:left;
+    border-bottom:1px solid var(--line); background:var(--paper);
+    white-space:nowrap;
+  }
+  tbody tr{ border-bottom:1px solid var(--line); transition:background .15s; }
+  tbody tr:last-child{ border-bottom:none; }
+  tbody tr:hover{ background:#f5f7fa; }
+  td{ padding:14px 20px; font-size:13.5px; vertical-align:top; }
+  td.name{ font-weight:600; white-space:nowrap; }
+  td.email a{ color:var(--teal); }
+  td.service span{
+    background:var(--paper-2); border-radius:6px;
+    padding:3px 9px; font-size:12px; white-space:nowrap;
+  }
+  td.message{ color:var(--muted); max-width:280px; font-size:13px; line-height:1.5; }
+  td.date{ font-family:var(--mono); font-size:12px; color:var(--muted); white-space:nowrap; }
+  .btn-delete{
+    background:none; border:1px solid var(--line); border-radius:6px;
+    padding:5px 10px; font-size:12px; color:var(--muted);
+    cursor:pointer; transition:border-color .15s, color .15s;
+  }
+  .btn-delete:hover{ border-color:#C24E3A; color:#C24E3A; }
+
+  .empty{
+    text-align:center; padding:80px 32px; color:var(--muted);
+  }
+  .empty svg{ margin:0 auto 16px; opacity:.3; }
+  .empty h3{ font-family:var(--display); font-size:18px; font-weight:600; margin-bottom:6px; }
+  .empty p{ font-size:14px; }
+
+  .loading{
+    text-align:center; padding:60px; color:var(--muted);
+    font-family:var(--mono); font-size:13px;
+  }
+
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .spinner{
+    display:inline-block; width:16px; height:16px;
+    border:2px solid var(--line); border-top-color:var(--teal);
+    border-radius:50%; animation:spin .6s linear infinite;
+    vertical-align:middle; margin-right:8px;
+  }
+
+  @media(max-width:720px){
+    .stats-bar{ grid-template-columns:1fr; }
+    td.message, td.service{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="/attached_assets/OmniStack-logo-horizontal_1784896590373.svg" alt="OmniStack Digital">
+    <span class="badge">Lead Inbox</span>
+  </div>
+  <div class="header-right">
+    <span id="leadCount"></span>
+    <button class="btn-refresh" onclick="load()">↻ Refresh</button>
+  </div>
+</header>
+
+<main>
+  <div class="page-head">
+    <h1>Contact Submissions</h1>
+    <p>Every message sent through the website contact form.</p>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-card">
+      <div class="label">Total Leads</div>
+      <div class="value" id="statTotal">—</div>
+      <div class="sub">all time</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">This Week</div>
+      <div class="value" id="statWeek">—</div>
+      <div class="sub">last 7 days</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Top Service</div>
+      <div class="value" id="statTop" style="font-size:16px;margin-top:8px;">—</div>
+      <div class="sub">most requested</div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <div class="table-toolbar">
+      <input class="search-box" id="searchBox" placeholder="Search by name, email or message…" oninput="renderTable()">
+      <select class="filter-select" id="filterService" onchange="renderTable()">
+        <option value="">All services</option>
+      </select>
+    </div>
+    <div id="tableContainer"><div class="loading"><span class="spinner"></span>Loading…</div></div>
+  </div>
+</main>
+
+<script>
+let allData = [];
+
+async function load() {
+  document.getElementById('tableContainer').innerHTML = '<div class="loading"><span class="spinner"></span>Loading…</div>';
+  try {
+    const res = await fetch('/api/submissions');
+    allData = await res.json();
+    updateStats();
+    populateFilter();
+    renderTable();
+    document.getElementById('leadCount').textContent = allData.length + ' lead' + (allData.length !== 1 ? 's' : '');
+  } catch {
+    document.getElementById('tableContainer').innerHTML = '<div class="empty"><p>Failed to load submissions.</p></div>';
+  }
+}
+
+function updateStats() {
+  document.getElementById('statTotal').textContent = allData.length;
+  const week = allData.filter(r => {
+    const d = new Date(r.created_at);
+    return (Date.now() - d.getTime()) < 7 * 86400 * 1000;
+  }).length;
+  document.getElementById('statWeek').textContent = week;
+
+  const freq = {};
+  allData.forEach(r => { if (r.service) freq[r.service] = (freq[r.service] || 0) + 1; });
+  const top = Object.entries(freq).sort((a,b) => b[1]-a[1])[0];
+  document.getElementById('statTop').textContent = top ? top[0] : '—';
+}
+
+function populateFilter() {
+  const services = [...new Set(allData.map(r => r.service).filter(Boolean))].sort();
+  const sel = document.getElementById('filterService');
+  const cur = sel.value;
+  sel.innerHTML = '<option value="">All services</option>' +
+    services.map(s => `<option value="${esc(s)}"${s===cur?' selected':''}>${esc(s)}</option>`).join('');
+}
+
+function renderTable() {
+  const q = document.getElementById('searchBox').value.toLowerCase();
+  const svc = document.getElementById('filterService').value;
+  const rows = allData.filter(r => {
+    const match = !q || [r.name,r.email,r.message,r.service].some(v => v && v.toLowerCase().includes(q));
+    const svcMatch = !svc || r.service === svc;
+    return match && svcMatch;
+  });
+
+  if (!rows.length) {
+    document.getElementById('tableContainer').innerHTML = `
+      <div class="empty">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="8" y="12" width="32" height="26" rx="4" stroke="#12181F" stroke-width="2"/><path d="M8 18h32M16 8v8M32 8v8" stroke="#12181F" stroke-width="2" stroke-linecap="round"/></svg>
+        <h3>${allData.length ? 'No results' : 'No submissions yet'}</h3>
+        <p>${allData.length ? 'Try a different search or filter.' : 'Submissions from the contact form will appear here.'}</p>
+      </div>`;
+    return;
+  }
+
+  document.getElementById('tableContainer').innerHTML = `
+    <table>
+      <thead><tr>
+        <th>Name</th><th>Email</th><th>Service</th><th>Message</th><th>Date</th><th></th>
+      </tr></thead>
+      <tbody>${rows.map(row).join('')}</tbody>
+    </table>`;
+}
+
+function row(r) {
+  const d = new Date(r.created_at);
+  const dateStr = d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+  const timeStr = d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+  return `<tr id="row-${r.id}">
+    <td class="name">${esc(r.name)}</td>
+    <td class="email"><a href="mailto:${esc(r.email)}">${esc(r.email)}</a></td>
+    <td class="service">${r.service ? `<span>${esc(r.service)}</span>` : '<span style="opacity:.4">—</span>'}</td>
+    <td class="message">${r.message ? esc(r.message).substring(0,120) + (r.message.length>120?'…':'') : '<span style="opacity:.4">—</span>'}</td>
+    <td class="date">${dateStr}<br><span style="opacity:.6">${timeStr}</span></td>
+    <td><button class="btn-delete" onclick="del(${r.id})">Delete</button></td>
+  </tr>`;
+}
+
+async function del(id) {
+  if (!confirm('Delete this submission?')) return;
+  await fetch('/api/submissions/' + id, { method: 'DELETE' });
+  allData = allData.filter(r => r.id !== id);
+  updateStats();
+  populateFilter();
+  renderTable();
+  document.getElementById('leadCount').textContent = allData.length + ' lead' + (allData.length !== 1 ? 's' : '');
+}
+
+function esc(s) {
+  if (!s) return '';
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+load();
+</script>
+</body>
+</html>

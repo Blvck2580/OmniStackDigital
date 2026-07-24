@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 140">
+  <defs>
+    
+  </defs>
+
+  <g transform="translate(10,10) scale(0.68)" opacity="1">
+    <rect x="46" y="46" width="118" height="118" rx="26" opacity="0.35" fill="rgb(18, 24, 31)"/>
+    <rect x="30" y="30" width="118" height="118" rx="26" opacity="0.65" fill="rgb(18, 24, 31)"/>
+    <rect x="14" y="14" width="118" height="118" rx="26" fill="rgb(18, 24, 31)"/>
+  </g>
+
+  <text x="150" y="82" font-size="46" letter-spacing="-0.5" fill="rgb(18, 24, 31)" font-family="&quot;Space Grotesk&quot;, Arial, sans-serif" font-weight="700">OmniStack</text>
+  <text x="152" y="108" font-size="15" letter-spacing="2" opacity="0.6" fill="rgb(18, 24, 31)" font-family="&quot;JetBrains Mono&quot;, &quot;Courier New&quot;, monospace" font-weight="500">DIGITAL</text>
+</svg>

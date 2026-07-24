@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OmniStack Digital — Websites &amp; Apps That Grow Your Business</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12181F;
+    --paper:#EEF1F5;
+    --paper-2:#E2E7EE;
+    --amber:#E8A33D;
+    --teal:#1D7874;
+    --muted:#5B6472;
+    --white:#FFFFFF;
+    --line: rgba(18,24,31,0.1);
+    --radius: 14px;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{ display:block; max-width:100%; }
+  a{ color:inherit; text-decoration:none; }
+  ul{ list-style:none; }
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* ---------- NAV ---------- */
+  header.site{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(238,241,245,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 32px;
+    max-width:1180px;
+    margin:0 auto;
+  }
+  .logo{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:19px;
+    letter-spacing:-0.01em;
+    display:flex;
+    align-items:center;
+    gap:9px;
+  }
+  .logo-mark{
+    width:22px; height:22px;
+    position:relative;
+  }
+  .logo-mark span{
+    position:absolute; left:0; right:0;
+    height:5px; border-radius:2px;
+    background:var(--teal);
+  }
+  .logo-mark span:nth-child(1){ top:0; background:var(--ink); }
+  .logo-mark span:nth-child(2){ top:8px; background:var(--teal); }
+  .logo-mark span:nth-child(3){ top:16px; background:var(--amber); }
+
+  .nav-links{
+    display:flex;
+    gap:34px;
+    font-size:14.5px;
+    font-weight:500;
+    color:var(--muted);
+  }
+  .nav-links a:hover{ color:var(--ink); }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:var(--body);
+    font-weight:600;
+    font-size:14px;
+    padding:11px 20px;
+    border-radius:999px;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn-primary{
+    background:var(--ink);
+    color:var(--paper);
+  }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 10px 24px rgba(18,24,31,0.25); }
+  .btn-ghost{
+    border-color:var(--line);
+    color:var(--ink);
+    background:transparent;
+  }
+  .btn-ghost:hover{ border-color:var(--ink); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:88px 0 60px;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:56px;
+    align-items:center;
+  }
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12.5px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--teal);
+    display:flex;
+    align-items:center;
+    gap:9px;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:7px; height:7px;
+    border-radius:50%;
+    background:var(--amber);
+  }
+  h1{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:clamp(34px, 4.6vw, 54px);
+    line-height:1.05;
+    letter-spacing:-0.02em;
+  }
+  h1 em{
+    font-style:normal;
+    color:var(--teal);
+  }
+  .hero p.lede{
+    margin-top:20px;
+    font-size:17px;
+    color:var(--muted);
+    max-width:480px;
+    line-height:1.65;
+  }
+  .hero-actions{
+    display:flex;
+    gap:14px;
+    margin-top:32px;
+  }
+
+  /* ---------- STACK VISUAL (signature element) ---------- */
+  .stack-visual{
+    position:relative;
+    height:400px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .stack{
+    position:relative;
+    width:100%;
+    max-width:360px;
+  }
+  .layer{
+    position:relative;
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:16px 20px;
+    margin-bottom:14px;
+    box-shadow:0 8px 22px rgba(18,24,31,0.06);
+    opacity:0;
+    transform:translateY(18px);
+    animation:rise .7s cubic-bezier(.2,.8,.2,1) forwards;
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    cursor:default;
+  }
+  .layer:hover{
+    transform:translateY(-4px);
+    box-shadow:0 16px 32px rgba(18,24,31,0.12);
+    border-color:var(--teal);
+  }
+  .layer:nth-child(1){ animation-delay:.1s; }
+  .layer:nth-child(2){ animation-delay:.26s; }
+  .layer:nth-child(3){ animation-delay:.42s; }
+  .layer:nth-child(4){ animation-delay:.58s; margin-bottom:0; }
+  @keyframes rise{
+    to{ opacity:1; transform:translateY(0); }
+  }
+  .layer-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .layer-index{
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--muted);
+  }
+  .layer-name{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:16.5px;
+    margin-top:3px;
+  }
+  .layer-dot{
+    width:9px;height:9px;border-radius:50%;
+  }
+  .layer:nth-child(1) .layer-dot{ background:var(--ink); }
+  .layer:nth-child(2) .layer-dot{ background:var(--teal); }
+  .layer:nth-child(3) .layer-dot{ background:var(--amber); }
+  .layer:nth-child(4) .layer-dot{ background:#C24E3A; }
+  .layer-desc{
+    font-size:12.5px;
+    color:var(--muted);
+    margin-top:6px;
+    max-height:0;
+    overflow:hidden;
+    opacity:0;
+    transition:max-height .25s ease, opacity .2s ease, margin-top .25s ease;
+  }
+  .layer:hover .layer-desc{
+    max-height:60px;
+    opacity:1;
+    margin-top:8px;
+  }
+
+  /* ---------- SECTION SCAFFOLD ---------- */
+  section{ padding:96px 0; }
+  .section-head{
+    max-width:620px;
+    margin-bottom:52px;
+  }
+  .section-head .eyebrow{ margin-bottom:14px; }
+  h2{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:clamp(26px, 3vw, 36px);
+    letter-spacing:-0.015em;
+  }
+  .section-head p{
+    margin-top:14px;
+    color:var(--muted);
+    font-size:15.5px;
+    line-height:1.7;
+  }
+
+  .reveal{
+    opacity:0;
+    transform:translateY(24px);
+    transition:opacity .6s ease, transform .6s ease;
+  }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- ABOUT ---------- */
+  .about{ background:var(--white); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .about-grid{
+    display:grid;
+    grid-template-columns:0.9fr 1.1fr;
+    gap:60px;
+    align-items:start;
+  }
+  .about-grid p{
+    font-size:16px;
+    color:var(--ink);
+    line-height:1.75;
+  }
+  .about-grid p + p{
+    margin-top:16px;
+    color:var(--muted);
+    font-size:14.5px;
+  }
+  .stat-row{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+  }
+  .stat{
+    border-left:2px solid var(--teal);
+    padding-left:16px;
+  }
+  .stat b{
+    font-family:var(--display);
+    font-size:30px;
+    display:block;
+  }
+  .stat span{
+    font-size:12.5px;
+    color:var(--muted);
+  }
+
+  /* ---------- SERVICES (stacked cards) ---------- */
+  .services-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:22px;
+  }
+  .service-card{
+    position:relative;
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:28px 24px 26px;
+    box-shadow:0 4px 0 var(--paper-2), 0 4px 14px rgba(18,24,31,0.04);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .service-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 4px 0 var(--paper-2), 0 18px 30px rgba(18,24,31,0.1);
+  }
+  .service-num{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--teal);
+  }
+  .service-card h3{
+    font-family:var(--display);
+    font-size:18.5px;
+    font-weight:600;
+    margin-top:10px;
+  }
+  .service-card p{
+    margin-top:10px;
+    font-size:13.8px;
+    color:var(--muted);
+    line-height:1.6;
+  }
+
+  /* ---------- PROCESS ---------- */
+  .process{ background:var(--white); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .process-row{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:0;
+    position:relative;
+  }
+  .process-row::before{
+    content:"";
+    position:absolute;
+    top:23px; left:0; right:0;
+    height:1px;
+    background:var(--line);
+  }
+  .process-step{ padding-right:24px; }
+  .step-num{
+    width:46px; height:46px;
+    border-radius:50%;
+    background:var(--paper);
+    border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--display);
+    font-weight:700;
+    font-size:16px;
+    position:relative;
+    z-index:2;
+    margin-bottom:20px;
+    transition:background .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .process-step:hover .step-num{
+    background:var(--teal);
+    color:var(--white);
+    border-color:var(--teal);
+  }
+  .process-step h3{
+    font-family:var(--display);
+    font-size:17px;
+    font-weight:600;
+  }
+  .process-step p{
+    margin-top:8px;
+    font-size:13.8px;
+    color:var(--muted);
+    line-height:1.6;
+  }
+
+  /* ---------- WHY ---------- */
+  .why-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px 40px;
+  }
+  .why-item{
+    display:flex;
+    gap:14px;
+    align-items:flex-start;
+    padding:18px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .why-check{
+    width:26px; height:26px;
+    border-radius:7px;
+    background:var(--teal);
+    color:var(--white);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    font-size:13px;
+    margin-top:2px;
+  }
+  .why-item h4{
+    font-family:var(--display);
+    font-size:15.5px;
+    font-weight:600;
+  }
+  .why-item p{
+    font-size:13.5px;
+    color:var(--muted);
+    margin-top:4px;
+    line-height:1.55;
+  }
+
+  /* ---------- CONTACT ---------- */
+  .contact{
+    background:var(--ink);
+    color:var(--paper);
+    border-radius:24px;
+    margin:0 32px 40px;
+    padding:64px 48px;
+  }
+  .contact-inner{
+    max-width:1180px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:48px;
+    align-items:center;
+  }
+  .contact h2{ color:var(--paper); }
+  .contact p{
+    color:#AEB6C2;
+    margin-top:14px;
+    font-size:15px;
+    max-width:420px;
+    line-height:1.7;
+  }
+  .contact-actions{ margin-top:28px; display:flex; gap:14px; }
+  .contact .btn-primary{ background:var(--amber); color:var(--ink); }
+  .contact .btn-ghost{ border-color:rgba(255,255,255,0.25); color:var(--paper); }
+  .contact .btn-ghost:hover{ border-color:var(--paper); }
+
+  .contact-details{
+    font-family:var(--mono);
+    font-size:13.5px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .contact-details .row{
+    display:flex;
+    justify-content:space-between;
+    border-bottom:1px solid rgba(255,255,255,0.12);
+    padding-bottom:12px;
+  }
+  .contact-details .row span:first-child{ color:#7C8798; }
+
+  footer.site{
+    text-align:center;
+    padding:28px 32px 48px;
+    font-size:12.5px;
+    color:var(--muted);
+  }
+
+  @media (max-width: 880px){
+    .hero-grid, .about-grid, .contact-inner{ grid-template-columns:1fr; }
+    .services-grid{ grid-template-columns:repeat(2,1fr); }
+    .process-row{ grid-template-columns:repeat(2,1fr); row-gap:36px; }
+    .process-row::before{ display:none; }
+    .why-grid{ grid-template-columns:1fr; }
+    .nav-links{ display:none; }
+    .stack-visual{ height:auto; margin-top:20px; }
+  }
+  @media (max-width: 560px){
+    .services-grid{ grid-template-columns:1fr; }
+    .stat-row{ grid-template-columns:1fr; gap:14px; }
+    .contact{ padding:40px 26px; margin:0 16px 32px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .layer{ animation:none; opacity:1; transform:none; }
+    .reveal{ transition:none; opacity:1; transform:none; }
+  }
+
+  a:focus-visible, button:focus-visible, .layer:focus-visible{
+    outline:2px solid var(--teal);
+    outline-offset:3px;
+  }
+
+  /* ---------- NAV SCROLL STATE ---------- */
+  header.site.scrolled{
+    box-shadow:0 2px 16px rgba(18,24,31,0.08);
+  }
+  .nav-links a{
+    position:relative;
+    transition:color .2s ease;
+  }
+  .nav-links a.active{ color:var(--ink); }
+  .nav-links a.active::after{
+    content:"";
+    position:absolute;
+    bottom:-4px; left:0; right:0;
+    height:2px;
+    border-radius:2px;
+    background:var(--teal);
+  }
+
+  /* ---------- HAMBURGER ---------- */
+  .hamburger{
+    display:none;
+    flex-direction:column;
+    gap:5px;
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:6px;
+    border-radius:8px;
+  }
+  .hamburger span{
+    display:block;
+    width:22px; height:2px;
+    background:var(--ink);
+    border-radius:2px;
+    transition:transform .25s ease, opacity .2s ease;
+  }
+  .hamburger.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2){ opacity:0; }
+  .hamburger.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+  .mobile-nav{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(18,24,31,0.5);
+    z-index:40;
+    opacity:0;
+    transition:opacity .25s ease;
+  }
+  .mobile-nav.open{ opacity:1; }
+  .mobile-nav-panel{
+    position:absolute;
+    top:0; right:0; bottom:0;
+    width:260px;
+    background:var(--paper);
+    padding:90px 32px 40px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    transform:translateX(100%);
+    transition:transform .3s cubic-bezier(.2,.8,.2,1);
+  }
+  .mobile-nav.open .mobile-nav-panel{ transform:translateX(0); }
+  .mobile-nav-panel a{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:20px;
+    padding:10px 0;
+    border-bottom:1px solid var(--line);
+    color:var(--ink);
+  }
+  .mobile-nav-panel a:last-child{ border:none; }
+  .mobile-nav-panel .btn{
+    margin-top:20px;
+    justify-content:center;
+  }
+
+  @media (max-width: 880px){
+    .hamburger{ display:flex; }
+    .mobile-nav{ display:block; }
+    .nav > .btn-primary{ display:none; }
+  }
+
+  /* ---------- HERO CYCLE WORD ---------- */
+  .cycle-word{
+    display:inline-block;
+    position:relative;
+  }
+  .cycle-word .word{
+    display:inline-block;
+    color:var(--teal);
+    position:absolute;
+    left:0;
+    white-space:nowrap;
+    opacity:0;
+    transform:translateY(12px);
+    transition:opacity .35s ease, transform .35s ease;
+  }
+  .cycle-word .word.active{
+    opacity:1;
+    transform:translateY(0);
+    position:relative;
+  }
+  .cycle-word .word.exit{
+    opacity:0;
+    transform:translateY(-12px);
+  }
+
+  /* ---------- STAT COUNTER ---------- */
+  .stat b{ transition:none; }
+
+  /* ---------- PROCESS INTERACTIVE ---------- */
+  .process-step{
+    cursor:pointer;
+  }
+  .process-step .step-detail{
+    margin-top:14px;
+    font-size:13.5px;
+    color:var(--muted);
+    line-height:1.65;
+    max-height:0;
+    overflow:hidden;
+    opacity:0;
+    transition:max-height .35s ease, opacity .3s ease, margin-top .3s ease;
+  }
+  .process-step.active-step .step-detail{
+    max-height:120px;
+    opacity:1;
+  }
+  .process-step.active-step .step-num{
+    background:var(--teal);
+    color:var(--white);
+    border-color:var(--teal);
+  }
+  .process-step.active-step h3{ color:var(--teal); }
+  .process-step h3{ transition:color .2s ease; }
+
+  /* ---------- CONTACT FORM ---------- */
+  .contact-form{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .form-row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .field{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .field label{
+    font-family:var(--mono);
+    font-size:11.5px;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:#7C8798;
+  }
+  .field input, .field select, .field textarea{
+    background:rgba(255,255,255,0.07);
+    border:1px solid rgba(255,255,255,0.15);
+    border-radius:10px;
+    padding:11px 14px;
+    font-family:var(--body);
+    font-size:14px;
+    color:var(--paper);
+    outline:none;
+    transition:border-color .2s ease, background .2s ease;
+    width:100%;
+  }
+  .field input::placeholder, .field textarea::placeholder{ color:#5B6880; }
+  .field select option{ background:var(--ink); color:var(--paper); }
+  .field input:focus, .field select:focus, .field textarea:focus{
+    border-color:var(--amber);
+    background:rgba(255,255,255,0.1);
+  }
+  .field.error input, .field.error select, .field.error textarea{
+    border-color:#C24E3A;
+  }
+  .field .field-err{
+    font-size:12px;
+    color:#E07060;
+    display:none;
+  }
+  .field.error .field-err{ display:block; }
+  .field textarea{ resize:vertical; min-height:90px; }
+  .form-submit{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-top:4px;
+  }
+  .form-success{
+    display:none;
+    align-items:center;
+    gap:10px;
+    font-size:14px;
+    color:#5DD6A0;
+    font-weight:500;
+  }
+  .form-success svg{ flex-shrink:0; }
+
+  @media (max-width: 680px){
+    .form-row{ grid-template-columns:1fr; }
+  }
+  @media (max-width: 880px){
+    .contact-inner{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <nav class="nav">
+    <div class="logo">
+      <img src="attached_assets/OmniStack-logo-horizontal_1784896590373.svg" alt="OmniStack Digital" height="38">
+    </div>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+      <a href="#why">Why Us</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="#contact" class="btn btn-primary">Start a project</a>
+    <button class="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<div class="mobile-nav" id="mobileNav" role="dialog" aria-label="Mobile navigation">
+  <div class="mobile-nav-panel">
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="#why">Why Us</a>
+    <a href="#contact">Contact</a>
+    <a href="#contact" class="btn btn-primary">Start a project</a>
+  </div>
+</div>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">Web &amp; app studio for growing businesses</div>
+        <h1>We build the <span class="cycle-word" id="cycleWord"><span class="word active">stack</span><span class="word">sites</span><span class="word">apps</span></span> behind your next website or app.</h1>
+        <p class="lede">From first sketch to launch day, OmniStack Digital designs and builds the websites, apps, and everything layered in between — so your business shows up ready.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">Start a project</a>
+          <a href="#process" class="btn btn-ghost">See how we work</a>
+        </div>
+      </div>
+
+      <div class="stack-visual" aria-label="The layers we build: design, frontend, backend, launch">
+        <div class="stack">
+          <div class="layer" tabindex="0">
+            <div class="layer-top"><span class="layer-index">01 · design</span><span class="layer-dot"></span></div>
+            <div class="layer-name">Interfaces people enjoy</div>
+            <div class="layer-desc">Brand-true visual design and UX, built mobile-first.</div>
+          </div>
+          <div class="layer" tabindex="0">
+            <div class="layer-top"><span class="layer-index">02 · frontend</span><span class="layer-dot"></span></div>
+            <div class="layer-name">Sites &amp; apps that feel fast</div>
+            <div class="layer-desc">Responsive websites, web apps, and mobile apps.</div>
+          </div>
+          <div class="layer" tabindex="0">
+            <div class="layer-top"><span class="layer-index">03 · backend</span><span class="layer-dot"></span></div>
+            <div class="layer-name">Systems that hold up</div>
+            <div class="layer-desc">E-commerce, dashboards, and the logic behind them.</div>
+          </div>
+          <div class="layer" tabindex="0">
+            <div class="layer-top"><span class="layer-index">04 · launch</span><span class="layer-dot"></span></div>
+            <div class="layer-name">Support that continues</div>
+            <div class="layer-desc">Maintenance and improvements long after go-live.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about">
+    <div class="wrap about-grid">
+      <div class="reveal">
+        <div class="eyebrow">Who we are</div>
+        <h2>A technical partner, not just a vendor.</h2>
+      </div>
+      <div class="reveal">
+        <p>OmniStack Digital designs and builds websites and apps for businesses that want a digital presence people actually enjoy using. We work with small businesses, growing startups, and established companies alike.</p>
+        <p>Whatever stage you're at — launching your first website, replacing an outdated one, or building a custom app from scratch — we combine clean design with solid engineering, and stay involved after launch.</p>
+        <div class="stat-row" style="margin-top:32px;">
+          <div class="stat"><b>4</b><span>build stages, start to finish</span></div>
+          <div class="stat"><b>1</b><span>point of contact, always</span></div>
+          <div class="stat"><b>0</b><span>surprise invoices</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">What we do</div>
+        <h2>Every layer of your digital presence, covered.</h2>
+        <p>Pick one service or the whole stack — we scope to what your business actually needs right now.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-num">01</div>
+          <h3>Website Design &amp; Development</h3>
+          <p>Custom, responsive websites built to reflect your brand and convert visitors into customers.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-num">02</div>
+          <h3>Web Applications</h3>
+          <p>Custom dashboards, portals, and internal tools that streamline how your business runs.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-num">03</div>
+          <h3>Mobile Apps</h3>
+          <p>iOS and Android apps built to be intuitive, fast, and easy for your customers to love.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-num">04</div>
+          <h3>E-commerce</h3>
+          <p>Online stores that make it simple for customers to browse, buy, and come back for more.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-num">05</div>
+          <h3>Maintenance &amp; Support</h3>
+          <p>Ongoing updates, hosting support, and improvements so your site keeps pace with you.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-num">06</div>
+          <h3>Branding &amp; UX Design</h3>
+          <p>Thoughtful visual design and user experience work that ties your presence together.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="process" id="process">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">How we work</div>
+        <h2>Four stages, one point of contact.</h2>
+      </div>
+      <div class="process-row">
+        <div class="process-step reveal" tabindex="0">
+          <div class="step-num">1</div>
+          <h3>Discover</h3>
+          <p>We learn about your business, goals, and audience.</p>
+          <div class="step-detail">We kick off with a deep-dive conversation — understanding your customers, competitors, and what success looks like. This shapes everything that follows.</div>
+        </div>
+        <div class="process-step reveal" tabindex="0">
+          <div class="step-num">2</div>
+          <h3>Design</h3>
+          <p>We map out the look, feel, and flow of your site or app.</p>
+          <div class="step-detail">Wireframes first, then high-fidelity mockups. You review and approve before a single line of code is written — no surprises on delivery.</div>
+        </div>
+        <div class="process-step reveal" tabindex="0">
+          <div class="step-num">3</div>
+          <h3>Build</h3>
+          <p>We develop, test, and refine until it's ready to launch.</p>
+          <div class="step-detail">Clean, performant code with regular check-ins. You get a staging link to review the real thing before it goes live.</div>
+        </div>
+        <div class="process-step reveal" tabindex="0">
+          <div class="step-num">4</div>
+          <h3>Support</h3>
+          <p>We stay on to help you maintain and grow it over time.</p>
+          <div class="step-detail">Post-launch isn't the end — it's the beginning. We handle updates, fixes, and new features as your business evolves.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="why">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Why businesses choose us</div>
+        <h2>Straightforward, start to finish.</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-item reveal">
+          <div class="why-check">✓</div>
+          <div><h4>Clear communication</h4><p>You'll always know what's happening and why.</p></div>
+        </div>
+        <div class="why-item reveal">
+          <div class="why-check">✓</div>
+          <div><h4>Fixed-scope pricing</h4><p>No surprise invoices, ever.</p></div>
+        </div>
+        <div class="why-item reveal">
+          <div class="why-check">✓</div>
+          <div><h4>Mobile-first design</h4><p>Built for where your customers actually show up.</p></div>
+        </div>
+        <div class="why-item reveal">
+          <div class="why-check">✓</div>
+          <div><h4>Fast turnaround</h4><p>Without cutting corners on quality.</p></div>
+        </div>
+        <div class="why-item reveal">
+          <div class="why-check">✓</div>
+          <div><h4>Support after launch</h4><p>We don't disappear once the site goes live.</p></div>
+        </div>
+        <div class="why-item reveal">
+          <div class="why-check">✓</div>
+          <div><h4>One team, full stack</h4><p>Design, build, and support from a single partner.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="wrap" style="padding:0;">
+  <section id="contact" class="contact reveal" style="padding-top:64px;padding-bottom:64px;">
+    <div class="contact-inner">
+      <div>
+        <h2>Let's build something great together.</h2>
+        <p>Tell us about your business and what you're trying to launch. We'll follow up within one business day.</p>
+        <div class="contact-details" style="margin-top:28px;">
+          <div class="row"><span>Email</span><span>omnistackdigital1@gmail.com</span></div>
+          <div class="row"><span>Phone</span><span>+27 65 860 4299</span></div>
+          <div class="row"><span>Web</span><span>www.omnistackdigital.com</span></div>
+        </div>
+      </div>
+      <form class="contact-form" id="contactForm" novalidate>
+        <div class="form-row">
+          <div class="field" id="field-name">
+            <label for="f-name">Your name</label>
+            <input type="text" id="f-name" name="name" placeholder="Jane Smith" autocomplete="name">
+            <span class="field-err">Please enter your name.</span>
+          </div>
+          <div class="field" id="field-email">
+            <label for="f-email">Email address</label>
+            <input type="email" id="f-email" name="email" placeholder="jane@company.com" autocomplete="email">
+            <span class="field-err">Please enter a valid email.</span>
+          </div>
+        </div>
+        <div class="field" id="field-service">
+          <label for="f-service">What do you need?</label>
+          <select id="f-service" name="service">
+            <option value="" disabled selected>Select a service…</option>
+            <option>Website Design &amp; Development</option>
+            <option>Web Application</option>
+            <option>Mobile App</option>
+            <option>E-commerce</option>
+            <option>Branding &amp; UX Design</option>
+            <option>Maintenance &amp; Support</option>
+            <option>Not sure yet</option>
+          </select>
+          <span class="field-err">Please select a service.</span>
+        </div>
+        <div class="field" id="field-message">
+          <label for="f-message">Tell us about your project</label>
+          <textarea id="f-message" name="message" placeholder="What are you building, and what's the goal?"></textarea>
+          <span class="field-err">Please add a short message.</span>
+        </div>
+        <div class="form-submit">
+          <button type="submit" class="btn btn-primary" style="background:var(--amber);color:var(--ink);">Send message</button>
+          <div class="form-success" id="formSuccess">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="#5DD6A0"/><path d="M5 9l3 3 5-5" stroke="#12181F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Sent! We'll be in touch soon.
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>
+
+<footer class="site">
+  © 2026 OmniStack Digital. Websites &amp; apps that grow your business.
+</footer>
+
+<script>
+  /* ── Scroll reveal ── */
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+  /* ── Nav: scroll shadow + scroll-spy ── */
+  const header = document.querySelector('header.site');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const sections = ['services','process','why','contact'].map(id => document.getElementById(id));
+
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 10);
+
+    let current = '';
+    sections.forEach(sec => {
+      if (sec && window.scrollY >= sec.offsetTop - 120) current = sec.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  }, { passive: true });
+
+  /* ── Mobile hamburger ── */
+  const hamburger = document.querySelector('.hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+
+  function openMenu() {
+    hamburger.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    mobileNav.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    mobileNav.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.contains('open') ? closeMenu() : openMenu();
+  });
+  mobileNav.addEventListener('click', e => {
+    if (e.target === mobileNav || e.target.tagName === 'A') closeMenu();
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+
+  /* ── Hero cycling word ── */
+  const words = document.querySelectorAll('#cycleWord .word');
+  let wordIdx = 0;
+  setInterval(() => {
+    words[wordIdx].classList.remove('active');
+    words[wordIdx].classList.add('exit');
+    const prev = wordIdx;
+    wordIdx = (wordIdx + 1) % words.length;
+    words[wordIdx].classList.add('active');
+    setTimeout(() => words[prev].classList.remove('exit'), 400);
+  }, 2400);
+
+  /* ── Animated stat counters ── */
+  function animateCount(el, target, duration = 1200) {
+    const isZero = target === 0;
+    if (isZero) { el.textContent = '0'; return; }
+    const start = performance.now();
+    function tick(now) {
+      const p = Math.min((now - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(ease * target);
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  const statEls = document.querySelectorAll('.stat b');
+  const statTargets = [4, 1, 0];
+  let statsDone = false;
+  const statObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting && !statsDone) {
+        statsDone = true;
+        statEls.forEach((el, i) => animateCount(el, statTargets[i]));
+      }
+    });
+  }, { threshold: 0.5 });
+  if (statEls[0]) statObs.observe(statEls[0].closest('.stat-row'));
+
+  /* ── Process steps: click to expand ── */
+  document.querySelectorAll('.process-step').forEach(step => {
+    function toggle() {
+      const isActive = step.classList.contains('active-step');
+      document.querySelectorAll('.process-step').forEach(s => s.classList.remove('active-step'));
+      if (!isActive) step.classList.add('active-step');
+    }
+    step.addEventListener('click', toggle);
+    step.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+  });
+
+  /* ── Contact form validation ── */
+  const form = document.getElementById('contactForm');
+  const successMsg = document.getElementById('formSuccess');
+
+  function validateField(fieldWrap, inputEl) {
+    const val = inputEl.value.trim();
+    let ok = val.length > 0;
+    if (inputEl.type === 'email') ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+    fieldWrap.classList.toggle('error', !ok);
+    return ok;
+  }
+
+  ['f-name','f-email','f-service','f-message'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('blur', () => validateField(el.closest('.field'), el));
+    el.addEventListener('input', () => { if (el.closest('.field').classList.contains('error')) validateField(el.closest('.field'), el); });
+  });
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const fields = [
+      { id: 'f-name',    el: document.getElementById('f-name') },
+      { id: 'f-email',   el: document.getElementById('f-email') },
+      { id: 'f-service', el: document.getElementById('f-service') },
+      { id: 'f-message', el: document.getElementById('f-message') },
+    ];
+    const allValid = fields.every(f => validateField(f.el.closest('.field'), f.el));
+    if (!allValid) { fields.find(f => f.el.closest('.field').classList.contains('error'))?.el.focus(); return; }
+
+    const btn = form.querySelector('[type=submit]');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name:    document.getElementById('f-name').value.trim(),
+          email:   document.getElementById('f-email').value.trim(),
+          service: document.getElementById('f-service').value,
+          message: document.getElementById('f-message').value.trim(),
+        }),
+      });
+      if (res.ok) {
+        form.reset();
+        btn.style.display = 'none';
+        successMsg.style.display = 'flex';
+      } else {
+        const err = await res.json().catch(() => ({}));
+        alert(err.error || 'Something went wrong. Please try again.');
+        btn.disabled = false;
+        btn.textContent = 'Send message';
+      }
+    } catch {
+      alert('Network error — please try again.');
+      btn.disabled = false;
+      btn.textContent = 'Send message';
+    }
+  });
+</script>
+
+</body>
+</html>
