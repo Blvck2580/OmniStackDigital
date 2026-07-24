@@ -44,7 +44,15 @@ async function sendNotificationEmail({ name, email, service, message }) {
   });
 }
 
-/* ── Schema bootstrap ── */
+/* ── Schema bootstrap ──
+   Runs once per cold start. Errors are logged, not thrown, so a DB
+   hiccup never prevents the whole serverless function from being
+   exported/invoked. Individual routes still handle their own DB
+   errors below. */
+let dbReady = initDb().catch(err => {
+  console.error('DB init failed:', err);
+});
+
 async function initDb() {
   await pool.query(`
     CREATE TABLE IF NOT EXISTS contact_submissions (
@@ -126,7 +134,12 @@ app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
 
-const PORT = process.env.PORT || 5000;
-initDb().then(() => {
+/* ── Local dev only: run a real server when NOT on Vercel ── */
+if (!process.env.VERCEL) {
+  const PORT = process.env.PORT || 5000;
   app.listen(PORT, '0.0.0.0', () => console.log(`Server running on port ${PORT}`));
-});
+}
+
+/* Vercel needs the Express app exported so it can invoke it directly
+   per-request, instead of app.listen() binding to a port. */
+module.exports = app;
