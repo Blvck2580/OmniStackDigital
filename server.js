@@ -4,16 +4,35 @@ const path = require('path');
 const nodemailer = require('nodemailer');
 
 const app = express();
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+/* Replit's built-in Postgres (Neon-backed) requires SSL for
+   connections from outside Replit's own environment. Without this,
+   every query fails and routes return 500s. */
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false },
+});
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-/* ── Gmail SMTP transporter ── */
+/* ── Gmail SMTP transporter ──
+   Using explicit host/port instead of `service: 'gmail'` — the
+   shorthand resolves to the same thing but explicit config is more
+   reliable in serverless environments and easier to debug.
+   `pool: false` is important here: connection pooling assumes a
+   long-lived process, which doesn't exist in a serverless function
+   that may be frozen/killed between invocations. */
+if (!process.env.GMAIL_APP_PASSWORD) {
+  console.warn('GMAIL_APP_PASSWORD is not set — email notifications will fail.');
+}
+
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
+  pool: false,
   auth: {
-    user: 'omnistackdigital1@gmail.com',
+    user: process.env.GMAIL_USER || 'omnistackdigital1@gmail.com',
     pass: process.env.GMAIL_APP_PASSWORD,
   },
 });
