@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    
+  </defs>
+  
+  <rect x="46" y="46" width="118" height="118" rx="26" fill="rgb(232, 163, 61)"/>
+  
+  <rect x="30" y="30" width="118" height="118" rx="26" fill="rgb(29, 120, 116)"/>
+  
+  <rect x="14" y="14" width="118" height="118" rx="26" fill="rgb(18, 24, 31)"/>
+  
+  <circle cx="97" cy="97" r="9" fill="rgb(232, 163, 61)"/>
+</svg>

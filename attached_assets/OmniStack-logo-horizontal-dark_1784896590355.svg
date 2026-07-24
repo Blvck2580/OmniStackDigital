@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 140">
+  <defs>
+    
+  </defs>
+
+  <g transform="translate(10,10) scale(0.68)">
+    <rect x="46" y="46" width="118" height="118" rx="26" fill="rgb(232, 163, 61)"/>
+    <rect x="30" y="30" width="118" height="118" rx="26" fill="rgb(95, 207, 199)"/>
+    <rect x="14" y="14" width="118" height="118" rx="26" fill="rgb(238, 241, 245)"/>
+    <circle cx="97" cy="97" r="9" fill="rgb(232, 163, 61)"/>
+  </g>
+
+  <text x="150" y="82" font-size="46" letter-spacing="-0.5" fill="rgb(238, 241, 245)" font-family="&quot;Space Grotesk&quot;, Arial, sans-serif" font-weight="700">Omni<tspan fill="rgb(95, 207, 199)">Stack</tspan></text>
+  <text x="152" y="108" font-size="15" letter-spacing="2" fill="rgb(139, 148, 163)" font-family="&quot;JetBrains Mono&quot;, &quot;Courier New&quot;, monospace" font-weight="500">DIGITAL</text>
+</svg>
