@@ -500,6 +500,213 @@
     outline:2px solid var(--teal);
     outline-offset:3px;
   }
+
+  /* ---------- NAV SCROLL STATE ---------- */
+  header.site.scrolled{
+    box-shadow:0 2px 16px rgba(18,24,31,0.08);
+  }
+  .nav-links a{
+    position:relative;
+    transition:color .2s ease;
+  }
+  .nav-links a.active{ color:var(--ink); }
+  .nav-links a.active::after{
+    content:"";
+    position:absolute;
+    bottom:-4px; left:0; right:0;
+    height:2px;
+    border-radius:2px;
+    background:var(--teal);
+  }
+
+  /* ---------- HAMBURGER ---------- */
+  .hamburger{
+    display:none;
+    flex-direction:column;
+    gap:5px;
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:6px;
+    border-radius:8px;
+  }
+  .hamburger span{
+    display:block;
+    width:22px; height:2px;
+    background:var(--ink);
+    border-radius:2px;
+    transition:transform .25s ease, opacity .2s ease;
+  }
+  .hamburger.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2){ opacity:0; }
+  .hamburger.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+  .mobile-nav{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(18,24,31,0.5);
+    z-index:40;
+    opacity:0;
+    transition:opacity .25s ease;
+  }
+  .mobile-nav.open{ opacity:1; }
+  .mobile-nav-panel{
+    position:absolute;
+    top:0; right:0; bottom:0;
+    width:260px;
+    background:var(--paper);
+    padding:90px 32px 40px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    transform:translateX(100%);
+    transition:transform .3s cubic-bezier(.2,.8,.2,1);
+  }
+  .mobile-nav.open .mobile-nav-panel{ transform:translateX(0); }
+  .mobile-nav-panel a{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:20px;
+    padding:10px 0;
+    border-bottom:1px solid var(--line);
+    color:var(--ink);
+  }
+  .mobile-nav-panel a:last-child{ border:none; }
+  .mobile-nav-panel .btn{
+    margin-top:20px;
+    justify-content:center;
+  }
+
+  @media (max-width: 880px){
+    .hamburger{ display:flex; }
+    .mobile-nav{ display:block; }
+    .nav > .btn-primary{ display:none; }
+  }
+
+  /* ---------- HERO CYCLE WORD ---------- */
+  .cycle-word{
+    display:inline-block;
+    position:relative;
+  }
+  .cycle-word .word{
+    display:inline-block;
+    color:var(--teal);
+    position:absolute;
+    left:0;
+    white-space:nowrap;
+    opacity:0;
+    transform:translateY(12px);
+    transition:opacity .35s ease, transform .35s ease;
+  }
+  .cycle-word .word.active{
+    opacity:1;
+    transform:translateY(0);
+    position:relative;
+  }
+  .cycle-word .word.exit{
+    opacity:0;
+    transform:translateY(-12px);
+  }
+
+  /* ---------- STAT COUNTER ---------- */
+  .stat b{ transition:none; }
+
+  /* ---------- PROCESS INTERACTIVE ---------- */
+  .process-step{
+    cursor:pointer;
+  }
+  .process-step .step-detail{
+    margin-top:14px;
+    font-size:13.5px;
+    color:var(--muted);
+    line-height:1.65;
+    max-height:0;
+    overflow:hidden;
+    opacity:0;
+    transition:max-height .35s ease, opacity .3s ease, margin-top .3s ease;
+  }
+  .process-step.active-step .step-detail{
+    max-height:120px;
+    opacity:1;
+  }
+  .process-step.active-step .step-num{
+    background:var(--teal);
+    color:var(--white);
+    border-color:var(--teal);
+  }
+  .process-step.active-step h3{ color:var(--teal); }
+  .process-step h3{ transition:color .2s ease; }
+
+  /* ---------- CONTACT FORM ---------- */
+  .contact-form{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .form-row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .field{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .field label{
+    font-family:var(--mono);
+    font-size:11.5px;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:#7C8798;
+  }
+  .field input, .field select, .field textarea{
+    background:rgba(255,255,255,0.07);
+    border:1px solid rgba(255,255,255,0.15);
+    border-radius:10px;
+    padding:11px 14px;
+    font-family:var(--body);
+    font-size:14px;
+    color:var(--paper);
+    outline:none;
+    transition:border-color .2s ease, background .2s ease;
+    width:100%;
+  }
+  .field input::placeholder, .field textarea::placeholder{ color:#5B6880; }
+  .field select option{ background:var(--ink); color:var(--paper); }
+  .field input:focus, .field select:focus, .field textarea:focus{
+    border-color:var(--amber);
+    background:rgba(255,255,255,0.1);
+  }
+  .field.error input, .field.error select, .field.error textarea{
+    border-color:#C24E3A;
+  }
+  .field .field-err{
+    font-size:12px;
+    color:#E07060;
+    display:none;
+  }
+  .field.error .field-err{ display:block; }
+  .field textarea{ resize:vertical; min-height:90px; }
+  .form-submit{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-top:4px;
+  }
+  .form-success{
+    display:none;
+    align-items:center;
+    gap:10px;
+    font-size:14px;
+    color:#5DD6A0;
+    font-weight:500;
+  }
+  .form-success svg{ flex-shrink:0; }
+
+  @media (max-width: 680px){
+    .form-row{ grid-template-columns:1fr; }
+  }
+  @media (max-width: 880px){
+    .contact-inner{ grid-template-columns:1fr; }
+  }
 </style>
 </head>
 <body>
@@ -516,15 +723,28 @@
       <a href="#contact">Contact</a>
     </div>
     <a href="#contact" class="btn btn-primary">Start a project</a>
+    <button class="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 </header>
+
+<div class="mobile-nav" id="mobileNav" role="dialog" aria-label="Mobile navigation">
+  <div class="mobile-nav-panel">
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="#why">Why Us</a>
+    <a href="#contact">Contact</a>
+    <a href="#contact" class="btn btn-primary">Start a project</a>
+  </div>
+</div>
 
 <main>
   <section class="hero">
     <div class="wrap hero-grid">
       <div>
         <div class="eyebrow">Web &amp; app studio for growing businesses</div>
-        <h1>We build the <em>stack</em> behind your next website or app.</h1>
+        <h1>We build the <span class="cycle-word" id="cycleWord"><span class="word active">stack</span><span class="word">sites</span><span class="word">apps</span></span> behind your next website or app.</h1>
         <p class="lede">From first sketch to launch day, OmniStack Digital designs and builds the websites, apps, and everything layered in between — so your business shows up ready.</p>
         <div class="hero-actions">
           <a href="#contact" class="btn btn-primary">Start a project</a>
@@ -626,25 +846,29 @@
         <h2>Four stages, one point of contact.</h2>
       </div>
       <div class="process-row">
-        <div class="process-step reveal">
+        <div class="process-step reveal" tabindex="0">
           <div class="step-num">1</div>
           <h3>Discover</h3>
           <p>We learn about your business, goals, and audience.</p>
+          <div class="step-detail">We kick off with a deep-dive conversation — understanding your customers, competitors, and what success looks like. This shapes everything that follows.</div>
         </div>
-        <div class="process-step reveal">
+        <div class="process-step reveal" tabindex="0">
           <div class="step-num">2</div>
           <h3>Design</h3>
           <p>We map out the look, feel, and flow of your site or app.</p>
+          <div class="step-detail">Wireframes first, then high-fidelity mockups. You review and approve before a single line of code is written — no surprises on delivery.</div>
         </div>
-        <div class="process-step reveal">
+        <div class="process-step reveal" tabindex="0">
           <div class="step-num">3</div>
           <h3>Build</h3>
           <p>We develop, test, and refine until it's ready to launch.</p>
+          <div class="step-detail">Clean, performant code with regular check-ins. You get a staging link to review the real thing before it goes live.</div>
         </div>
-        <div class="process-step reveal">
+        <div class="process-step reveal" tabindex="0">
           <div class="step-num">4</div>
           <h3>Support</h3>
           <p>We stay on to help you maintain and grow it over time.</p>
+          <div class="step-detail">Post-launch isn't the end — it's the beginning. We handle updates, fixes, and new features as your business evolves.</div>
         </div>
       </div>
     </div>
@@ -692,16 +916,52 @@
       <div>
         <h2>Let's build something great together.</h2>
         <p>Tell us about your business and what you're trying to launch. We'll follow up within one business day.</p>
-        <div class="contact-actions">
-          <a href="mailto:omnistackdigital1@gmail.com" class="btn btn-primary">Email us</a>
-          <a href="tel:+27658604299" class="btn btn-ghost">Call us</a>
+        <div class="contact-details" style="margin-top:28px;">
+          <div class="row"><span>Email</span><span>omnistackdigital1@gmail.com</span></div>
+          <div class="row"><span>Phone</span><span>+27 65 860 4299</span></div>
+          <div class="row"><span>Web</span><span>www.omnistackdigital.com</span></div>
         </div>
       </div>
-      <div class="contact-details">
-        <div class="row"><span>Email</span><span>omnistackdigital1@gmail.com</span></div>
-        <div class="row"><span>Phone</span><span>+27 65 860 4299</span></div>
-        <div class="row"><span>Web</span><span>www.omnistackdigital.com</span></div>
-      </div>
+      <form class="contact-form" id="contactForm" novalidate>
+        <div class="form-row">
+          <div class="field" id="field-name">
+            <label for="f-name">Your name</label>
+            <input type="text" id="f-name" name="name" placeholder="Jane Smith" autocomplete="name">
+            <span class="field-err">Please enter your name.</span>
+          </div>
+          <div class="field" id="field-email">
+            <label for="f-email">Email address</label>
+            <input type="email" id="f-email" name="email" placeholder="jane@company.com" autocomplete="email">
+            <span class="field-err">Please enter a valid email.</span>
+          </div>
+        </div>
+        <div class="field" id="field-service">
+          <label for="f-service">What do you need?</label>
+          <select id="f-service" name="service">
+            <option value="" disabled selected>Select a service…</option>
+            <option>Website Design &amp; Development</option>
+            <option>Web Application</option>
+            <option>Mobile App</option>
+            <option>E-commerce</option>
+            <option>Branding &amp; UX Design</option>
+            <option>Maintenance &amp; Support</option>
+            <option>Not sure yet</option>
+          </select>
+          <span class="field-err">Please select a service.</span>
+        </div>
+        <div class="field" id="field-message">
+          <label for="f-message">Tell us about your project</label>
+          <textarea id="f-message" name="message" placeholder="What are you building, and what's the goal?"></textarea>
+          <span class="field-err">Please add a short message.</span>
+        </div>
+        <div class="form-submit">
+          <button type="submit" class="btn btn-primary" style="background:var(--amber);color:var(--ink);">Send message</button>
+          <div class="form-success" id="formSuccess">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="#5DD6A0"/><path d="M5 9l3 3 5-5" stroke="#12181F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Sent! We'll be in touch soon.
+          </div>
+        </div>
+      </form>
     </div>
   </section>
 </div>
@@ -711,12 +971,144 @@
 </footer>
 
 <script>
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) e.target.classList.add('in');
-    });
+  /* ── Scroll reveal ── */
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
   }, { threshold: 0.15 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+  /* ── Nav: scroll shadow + scroll-spy ── */
+  const header = document.querySelector('header.site');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const sections = ['services','process','why','contact'].map(id => document.getElementById(id));
+
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 10);
+
+    let current = '';
+    sections.forEach(sec => {
+      if (sec && window.scrollY >= sec.offsetTop - 120) current = sec.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  }, { passive: true });
+
+  /* ── Mobile hamburger ── */
+  const hamburger = document.querySelector('.hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+
+  function openMenu() {
+    hamburger.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    mobileNav.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    mobileNav.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.contains('open') ? closeMenu() : openMenu();
+  });
+  mobileNav.addEventListener('click', e => {
+    if (e.target === mobileNav || e.target.tagName === 'A') closeMenu();
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+
+  /* ── Hero cycling word ── */
+  const words = document.querySelectorAll('#cycleWord .word');
+  let wordIdx = 0;
+  setInterval(() => {
+    words[wordIdx].classList.remove('active');
+    words[wordIdx].classList.add('exit');
+    const prev = wordIdx;
+    wordIdx = (wordIdx + 1) % words.length;
+    words[wordIdx].classList.add('active');
+    setTimeout(() => words[prev].classList.remove('exit'), 400);
+  }, 2400);
+
+  /* ── Animated stat counters ── */
+  function animateCount(el, target, duration = 1200) {
+    const isZero = target === 0;
+    if (isZero) { el.textContent = '0'; return; }
+    const start = performance.now();
+    function tick(now) {
+      const p = Math.min((now - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(ease * target);
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  const statEls = document.querySelectorAll('.stat b');
+  const statTargets = [4, 1, 0];
+  let statsDone = false;
+  const statObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting && !statsDone) {
+        statsDone = true;
+        statEls.forEach((el, i) => animateCount(el, statTargets[i]));
+      }
+    });
+  }, { threshold: 0.5 });
+  if (statEls[0]) statObs.observe(statEls[0].closest('.stat-row'));
+
+  /* ── Process steps: click to expand ── */
+  document.querySelectorAll('.process-step').forEach(step => {
+    function toggle() {
+      const isActive = step.classList.contains('active-step');
+      document.querySelectorAll('.process-step').forEach(s => s.classList.remove('active-step'));
+      if (!isActive) step.classList.add('active-step');
+    }
+    step.addEventListener('click', toggle);
+    step.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+  });
+
+  /* ── Contact form validation ── */
+  const form = document.getElementById('contactForm');
+  const successMsg = document.getElementById('formSuccess');
+
+  function validateField(fieldWrap, inputEl) {
+    const val = inputEl.value.trim();
+    let ok = val.length > 0;
+    if (inputEl.type === 'email') ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+    fieldWrap.classList.toggle('error', !ok);
+    return ok;
+  }
+
+  ['f-name','f-email','f-service','f-message'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('blur', () => validateField(el.closest('.field'), el));
+    el.addEventListener('input', () => { if (el.closest('.field').classList.contains('error')) validateField(el.closest('.field'), el); });
+  });
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const fields = [
+      { id: 'f-name',    el: document.getElementById('f-name') },
+      { id: 'f-email',   el: document.getElementById('f-email') },
+      { id: 'f-service', el: document.getElementById('f-service') },
+      { id: 'f-message', el: document.getElementById('f-message') },
+    ];
+    const allValid = fields.every(f => validateField(f.el.closest('.field'), f.el));
+    if (!allValid) { fields.find(f => f.el.closest('.field').classList.contains('error'))?.el.focus(); return; }
+
+    /* Simulate send (swap for real endpoint) */
+    const btn = form.querySelector('[type=submit]');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    setTimeout(() => {
+      form.reset();
+      btn.style.display = 'none';
+      successMsg.style.display = 'flex';
+    }, 900);
+  });
 </script>
 
 </body>
